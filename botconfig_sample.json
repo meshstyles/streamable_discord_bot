@@ -1,0 +1,8 @@
+{
+    "token": "INSERT TOKEN HERE",
+    "prefix":"-",
+    "uemail":"streamable email here",
+    "upwd":"streamable password here",
+    "convert":"!convert",
+    "retrieve":"!retrieve"
+}

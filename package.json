@@ -1,0 +1,27 @@
+{
+  "name": "asukabot",
+  "version": "1.0.1",
+  "description": "a fun discord bot",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "discord.js": "^11.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meshstyles/asukabot.git"
+  },
+  "keywords": [
+    "discord_js_bot"
+  ],
+  "author": "MaximilianM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meshstyles/asukabot/issues"
+  },
+  "homepage": "https://github.com/meshstyles/asukabot#readme"
+}
