@@ -4,5 +4,6 @@
     "uemail":"streamable email here",
     "upwd":"streamable password here",
     "convert":"!convert",
-    "retrieve":"!retrieve"
+    "retrieve":"!retrieve",
+    "twchannel":"yourUserNameHere"
 }
