@@ -1,7 +1,7 @@
 {
-  "name": "asukabot",
-  "version": "1.0.1",
-  "description": "a fun discord bot",
+  "name": "streamable_discord_bot",
+  "version": "1.0.2",
+  "description": "twitch submissions bot using streamable to convert and host videos",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.19.2",
@@ -9,11 +9,12 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meshstyles/asukabot.git"
+    "url": "git+https://github.com/meshstyles/streamable_discord_bot.git"
   },
   "keywords": [
     "discord_js_bot"
@@ -21,7 +22,7 @@
   "author": "MaximilianM",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meshstyles/asukabot/issues"
+    "url": "https://github.com/meshstyles/streamable_discord_bot/issues"
   },
-  "homepage": "https://github.com/meshstyles/asukabot#readme"
+  "homepage": "https://github.com/meshstyles/streamable_discord_bot#readme"
 }

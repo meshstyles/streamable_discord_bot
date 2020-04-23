@@ -119,11 +119,15 @@ dist
 botconfig.json
 botconfig_demo.json
 priv_info.md
-tochange.html
-tochange.pdf
 *.mp3
 /node_modules
 /.vscode
+/out
+*.pdf
+*.html
 
 #designation for log files
 log_*
+
+#shell files
+*.sh

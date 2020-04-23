@@ -1,86 +1,94 @@
+// WARNING THIS CODE CONTAINS EMOJIS
+
+//require apis and confi files used
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 const axios = require('axios');
+
+// disable @everyone for this bot instance
 const bot = new Discord.Client({disableEveryone: true});
 
 bot.on("ready", async() => {
-    console.log(`Bot is online`)
-    bot.user.setActivity("type -help for help")
+  //resoponse to see bot is alive
+  console.log(`Bot is online`);
+  //activty
+  bot.user.setActivity("!submit + clip")
 });
 
-const upwd = botconfig.upwd;
-const uemail = botconfig.uemail;
+//Links and variables that don't change
 const streamableBaselinkVideo = "https://streamable.com/";
+const streamableApiImportLink = "https://api.streamable.com/import?url=";
+const twChannelLink = "https://www.twitch.tv/" + botconfig.twchannel + "/clip/";
+const twClipBaseLink = "https://clips.twitch.tv/";
 
-var urlImport = "https://api.streamable.com/import?url=";
-var twlink = "https://www.twitch.tv/" + botconfig.twchannel + "/clip/"
+//TODO handoff to worker thread
+/**
+ * main function
+ * @returns void
+ */
 
 bot.on("message", async message => {
+  //check if message starts with convert command
   if(message.content.startsWith(botconfig.convert)){
 
+    //split message to recieve link
     var convMsg = message.content.split(" ");
 
-  if(convMsg[1].startsWith(twlink)) 
-    clip = twClipify(convMsg[1]);
-  else if(conv[1].startsWith("https://clips.twitch.tv/")) 
-    clip = convMsg[1];
-  else 
-    return message.channel.send("nope chuck testa!");
-    
-    urlImport = urlImport + convMsg[1];
+    //if create clip.twitch.tv link form channel twitch clip
+    if( ! (convMsg[1].startsWith(twChannelLink) || convMsg[1].startsWith(twClipBaseLink) ) ) {
+      //uncomment chosen response
 
-    axios.get(urlImport,{
-      auth: {
-        username: uemail,
-        password: upwd
-      }
-    }).then((resp) => {
-      message.channel.send( streamableBaselinkVideo + resp.data.shortcode);
-    },(error) => {
-      console.log(error);
-    });
-  }
-  
-  if(message.content.startsWith(botconfig.retrieve)){
-    var retMsg = message.content.split(streamableBaselinkVideo)
-    var urlExport = "https://api.streamable.com/videos/"
-    urlExport = urlExport + retMsg[1];
-
-    axios.get(urlExport,{
-      auth: {
-        username: uemail,
-        password: upwd
-      }
-    }).then((resp) => {
+      //error message text
+      //message.channel.send(botconfig.errormsg);
       
-      if(resp.data.title.length !== 0) 
-        title = resp.data.title;
-      else title = "twitch clip";
+      //error message emoji
+      message.react('❎');
+      //return
+      return;
+    }
 
-      const b = "https:";
-      var img = b + resp.data.thumbnail_url;
-      var url = b + resp.data.files.mp4.url;
-      img
-      const steamableEmbed = new Discord.RichEmbed()
-                .setColor("#0F90FA")
-                .setURL(url)
-                .setTitle(title)
-                .setImage(img)
-                .setFooter("Streamable CDN" )
-                .addField("source", resp.data.source)
-      message.channel.send(steamableEmbed);
+    //create api request link 
+    var urlImport = streamableApiImportLink + filter(convMsg[1]);
+    
+    //api access via module axios
+    axios.get(urlImport,{
+      //auth to api via basic auth
+      auth: {
+        username: botconfig.uemail,
+        password: botconfig.upwd
+      }
+    }).then((resp) => {
+      //send message with stremable link back into the channel comment out if you don't want video sent as a response
+      message.channel.send( streamableBaselinkVideo + resp.data.shortcode);
+      //uncomment this if you prefer emoji response
+      message.react('✅');
+      return;
+    // on error
     },(error) => {
+      //print any errors to console (check logfiles regularly) and inform user
       console.log(error);
-      return message.channel.send("error");
+      message.reply(botconfig.criticalerror);
+      return;
     });
   }
-
 });
 
-function twClipify(baselink){
-    baselink.split(twlink);
-    var clipbaselink = "https://clips.twitch.tv/";
-    return clipbaselink + baselink[1];
+/**
+ * clears url of after ? parameters
+ * @param {string} url - input url 
+ * @returns {string} sanatized url
+ */
+function filter(url){
+  var clip;
+  //after id filter
+  if(url.includes('?')){
+    var convMsg = url.split('?');
+    clip = convMsg[0];
+  }else{
+    clip = url;
+  }
+  return clip;
 }
 
+//login bot into to discord api with auth token
 bot.login(botconfig.token);

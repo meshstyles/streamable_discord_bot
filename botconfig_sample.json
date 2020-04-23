@@ -1,9 +1,9 @@
 {
     "token": "INSERT TOKEN HERE",
-    "prefix":"-",
     "uemail":"streamable email here",
     "upwd":"streamable password here",
-    "convert":"!convert",
-    "retrieve":"!retrieve",
-    "twchannel":"yourUserNameHere"
+    "convert":"!submit",
+    "twchannel":"yourUserNameHere",
+    "errormsg":"not a twitch link",
+    "criticalerror":"there is a critical error please inform admins"
 }
