@@ -68,6 +68,7 @@ bot.on("message", async message => {
       //print any errors to console (check logfiles regularly) and inform user
       console.log(error);
       message.reply(botconfig.criticalerror);
+      message.react('🛑');
       return;
     });
   }
